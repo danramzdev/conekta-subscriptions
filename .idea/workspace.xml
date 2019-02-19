@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="375593cd-549c-4e1b-8e8a-d54b97387c01" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/suscripcion.php" beforeDir="false" afterPath="$PROJECT_DIR$/suscripcion.php" afterDir="false" />
-    </list>
+    <list default="true" id="375593cd-549c-4e1b-8e8a-d54b97387c01" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,7 +26,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/suscripcion.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
+            <state relative-caret-position="1008">
               <caret line="48" column="2" lean-forward="true" selection-start-line="48" selection-start-column="2" selection-end-line="48" selection-end-column="2" />
             </state>
           </provider>
@@ -182,16 +180,15 @@
       <option name="presentableId" value="Default" />
       <updated>1550453250710</updated>
       <workItem from="1550453258764" duration="5772000" />
-      <workItem from="1550530757476" duration="6574000" />
+      <workItem from="1550530757476" duration="6890000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12346000" />
+    <option name="totallyTimeSpent" value="12662000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.16111952" />
@@ -312,7 +309,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/suscripcion.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
+        <state relative-caret-position="1008">
           <caret line="48" column="2" lean-forward="true" selection-start-line="48" selection-start-column="2" selection-end-line="48" selection-end-column="2" />
         </state>
       </provider>

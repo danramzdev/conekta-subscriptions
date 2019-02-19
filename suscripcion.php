@@ -12,9 +12,9 @@ var_dump($token_id);
 try {
     $customer = \Conekta\Customer::create(
         array(
-            "name" => "Daniel Ramirez",
-            "email" => "dan@conekta.com",
-            "phone" => "+526969696969",
+            "name" => "rov Ramirez",
+            "email" => "rov@conekta.com",
+            "phone" => "+522034304022",
             "metadata" => array("reference" => "12987324097", "random_key" => "random value"),
             "payment_sources" => array(
                 array(
