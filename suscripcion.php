@@ -2,10 +2,12 @@
 
 require_once 'vendor/autoload.php';
 
-\Conekta\Conekta::setApiKey("key_eYvWV7gSDkNYXsmr");
+\Conekta\Conekta::setApiKey("key_GbgD9zrqbVxbsyyy6J8CaA");
 \Conekta\Conekta::setApiVersion("2.0.0");
 
 $token_id = $_POST['conektaTokenId'];
+
+var_dump($token_id);
 
 try {
     $customer = \Conekta\Customer::create(
@@ -45,3 +47,13 @@ $subscription = $customer->createSubscription(
         'plan' => 'plan-semanal'
     )
 );
+
+$body = @file_get_contents('php://input');
+$data = json_decode($body);
+http_response_code(200); // Return 200 OK
+
+if ($data->type == 'charge.paid'){
+    $payment_method = $data->charges->data->object->payment_method->type;
+    $msg = "Tu pago ha sido comprobado.";
+    mail("<a href="mailto:client@email.com">client@email.com</a>","Pago ". $payment_method ." confirmado",$msg);
+}
