@@ -23,9 +23,13 @@ $map->get('index', '/', [
     'controller' => 'App\Controllers\IndexController',
     'action' => 'index'
 ]);
-$map->get('planes', '/planes', [
+$map->get('checkout', '/plan/checkout', [
     'controller' => 'App\Controllers\PlanController',
-    'action' => 'index'
+    'action' => 'checkout'
+]);
+$map->post('payment', '/plan/cobro', [
+    'controller' => 'App\Controllers\PlanController',
+    'action' => 'payment'
 ]);
 
 $matcher = $routerContainer->getMatcher();

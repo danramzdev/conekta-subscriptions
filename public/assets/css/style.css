@@ -1,0 +1,21 @@
+:root {
+    --white-color: #fff;
+    --primary-color: #7932a8;
+    --secondary-color: #232323;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ul li{
+    list-style: none;
+}
+
+.hero {
+    padding: 150px 0;
+    background: linear-gradient(-90deg, var(--primary-color), var(--secondary-color));
+    color: var(--white-color);
+}
