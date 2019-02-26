@@ -51,6 +51,11 @@ class PlanController extends BaseController
             echo $error->getMessage();
         }
 
+        $subscription = $customer->createSubscription(
+            array(
+                'plan' => 'plan-semanal'
+            )
+        );
 
         return $this->renderHTML('plan.twig');
     }
