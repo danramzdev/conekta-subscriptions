@@ -1,18 +1,16 @@
-<!doctype html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+{% extends 'layouts/layout.twig' %}
+
+{% block title %}
+  Plan - Checkout
+{% endblock %}
+
+{% block head %}
   <script type="text/javascript" src="https://cdn.conekta.io/js/latest/conekta.js"></script>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <link rel="stylesheet" href="../assets/css/style.css">
-</head>
-<body>
+{% endblock %}
 
+{% block content %}
   <div class="container">
     <h1>Checkout</h1>
     <h2 class="mb-5">{{ plan }}</h2>
@@ -44,12 +42,12 @@
         <div class="col-12 col-md-4 rounded bg-info text-white p-3">
           <span class="card-errors"></span>
           <div>
-              <span>Nombre del tarjetahabiente</span>
-              <input class="form-control" type="text" size="20" data-conekta="card[name]">
+            <span>Nombre del tarjetahabiente</span>
+            <input class="form-control" type="text" size="20" data-conekta="card[name]">
           </div>
           <div>
-              <span>Número de tarjeta de crédito</span>
-              <input class="form-control" type="text" size="20" data-conekta="card[number]" placeholder="xxxx-xxxx-xxxx-xxxx">
+            <span>Número de tarjeta de crédito</span>
+            <input class="form-control" type="text" size="20" data-conekta="card[number]" placeholder="xxxx-xxxx-xxxx-xxxx">
           </div>
           <div>
             <label>
@@ -74,11 +72,10 @@
   <script src="../assets/js/conekta-client.js"></script>
   <script>
     function isNumberKey(event) {
-        if (isNaN(event.key)) {
-          return false;
-        }
-        return event.key;
+      if (isNaN(event.key)) {
+        return false;
+      }
+      return event.key;
     }
   </script>
-</body>
-</html>
+{% endblock %}
