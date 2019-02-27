@@ -6,9 +6,16 @@ use Zend\Diactoros\ServerRequest;
 
 class PlanController extends BaseController
 {
-    private $apiKey = "key_GbgD9zrqbVxbsyyy6J8CaA";
-    private $apiVersion = "2.0.0";
+    private $apiKey;
+    private $apiVersion;
     protected $error;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->apiKey = getenv('API_KEY');
+        $this->apiVersion = getenv('API_VERSION');
+    }
 
     public function checkout(ServerRequest $request)
     {
@@ -33,6 +40,16 @@ class PlanController extends BaseController
 
         $planId = $data['plan'];
         $plan = \Conekta\Plan::find($planId);
+
+        $email = $data['email'];
+        var_dump($email);
+        echo '<br>';
+        $customer = \Conekta\Customer::find("cus_2kAtfLtuDmPjUGC83");
+        echo '<pre>';
+        print_r($customer->subscription);
+        echo '</pre>';
+
+        die();
 
         try {
             $customer = \Conekta\Customer::create(
