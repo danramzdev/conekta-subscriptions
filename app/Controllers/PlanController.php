@@ -6,10 +6,14 @@ use Zend\Diactoros\ServerRequest;
 
 class PlanController extends BaseController
 {
+    private $apiKey = "key_GbgD9zrqbVxbsyyy6J8CaA";
+    private $apiVersion = "2.0.0";
+    protected $error;
+
     public function checkout(ServerRequest $request)
     {
-        \Conekta\Conekta::setApiKey("key_GbgD9zrqbVxbsyyy6J8CaA");
-        \Conekta\Conekta::setApiVersion("2.0.0");
+        \Conekta\Conekta::setApiKey($this->apiKey);
+        \Conekta\Conekta::setApiVersion($this->apiVersion);
 
         $params = $request->getQueryParams();
 
@@ -20,8 +24,10 @@ class PlanController extends BaseController
 
     public function payment(ServerRequest $request)
     {
-        \Conekta\Conekta::setApiKey("key_GbgD9zrqbVxbsyyy6J8CaA");
-        \Conekta\Conekta::setApiVersion("2.0.0");
+        \Conekta\Conekta::setApiKey($this->apiKey);
+        \Conekta\Conekta::setApiVersion($this->apiVersion);
+
+        error_reporting(E_ALL ^ E_WARNING);
 
         $data = $request->getParsedBody();
 
@@ -34,7 +40,6 @@ class PlanController extends BaseController
                     "name" => $data['first-name'] . ' ' . $data['last-name'],
                     "email" => $data['email'],
                     "phone" => $data['phone'],
-                    "metadata" => array("reference" => "12987324097", "random_key" => random_int(1, 1000000)),
                     "payment_sources" => array(
                         array(
                             "type" => "card",
@@ -44,11 +49,11 @@ class PlanController extends BaseController
                 )//customer
             );
         } catch (\Conekta\ProccessingError $error){
-            echo $error->getMesage();
+            $this->error = $error->getMesage();
         } catch (\Conekta\ParameterValidationError $error){
-            echo $error->getMessage();
+            $this->error = $error->getMessage();
         } catch (\Conekta\Handler $error){
-            echo $error->getMessage();
+            $this->error = $error->getMessage();
         }
 
         $subscription = $customer->createSubscription(
@@ -57,6 +62,8 @@ class PlanController extends BaseController
             )
         );
 
-        return $this->renderHTML('plan.twig');
+        return $this->renderHTML('plan.twig', [
+            'error' => $this->error
+        ]);
     }
 }

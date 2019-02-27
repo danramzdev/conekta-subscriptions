@@ -1,15 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Hp
- * Date: 19/02/2019
- * Time: 01:20 PM
- */
 
 namespace App\Controllers;
 
 use Zend\Diactoros\Response\HtmlResponse;
-
 
 class BaseController
 {

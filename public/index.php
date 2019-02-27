@@ -53,6 +53,3 @@ if (!$route) {
     http_response_code($response->getStatusCode());
     echo $response->getBody();
 }
-
-
-
