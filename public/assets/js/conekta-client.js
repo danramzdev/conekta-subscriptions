@@ -22,5 +22,3 @@ $(function () {
         return false;
     });
 });
-
-console.log('El puto código de conekta');
