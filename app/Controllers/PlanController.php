@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use Zend\Diactoros\ServerRequest;
+use App\Models\Subscribers;
 
 class PlanController extends BaseController
 {
@@ -19,9 +20,6 @@ class PlanController extends BaseController
 
     public function checkout(ServerRequest $request)
     {
-        \Conekta\Conekta::setApiKey($this->apiKey);
-        \Conekta\Conekta::setApiVersion($this->apiVersion);
-
         $params = $request->getQueryParams();
 
         return $this->renderHTML('checkout.twig', [
@@ -39,45 +37,62 @@ class PlanController extends BaseController
         $data = $request->getParsedBody();
 
         $planId = $data['plan'];
-        $plan = \Conekta\Plan::find($planId);
-
         $email = $data['email'];
-        var_dump($email);
-        echo '<br>';
-        $customer = \Conekta\Customer::find("cus_2kAtfLtuDmPjUGC83");
-        echo '<pre>';
-        print_r($customer->subscription);
-        echo '</pre>';
 
-        die();
+        $subscriber = Subscribers::where('email', $email)->first() ?? null;
 
-        try {
-            $customer = \Conekta\Customer::create(
-                array(
-                    "name" => $data['first-name'] . ' ' . $data['last-name'],
-                    "email" => $data['email'],
-                    "phone" => $data['phone'],
-                    "payment_sources" => array(
-                        array(
-                            "type" => "card",
-                            "token_id" => $data['conektaTokenId']
-                        )
-                    )//payment_sources
-                )//customer
-            );
-        } catch (\Conekta\ProccessingError $error){
-            $this->error = $error->getMesage();
-        } catch (\Conekta\ParameterValidationError $error){
-            $this->error = $error->getMessage();
-        } catch (\Conekta\Handler $error){
-            $this->error = $error->getMessage();
+        if ($subscriber) {
+            try {
+                $customer = \Conekta\Customer::find($subscriber->customer_id);
+            } catch (\Conekta\ProccessingError $error){
+                $this->error = $error->getMesage();
+            } catch (\Conekta\ParameterValidationError $error){
+                $this->error = $error->getMessage();
+            } catch (\Conekta\Handler $error){
+                $this->error = $error->getMessage();
+            }
+        } else {
+            $subscriber = new Subscribers();
+
+            try {
+                $customer = \Conekta\Customer::create(
+                    array(
+                        "name" => $data['first-name'] . ' ' . $data['last-name'],
+                        "email" => $data['email'],
+                        "phone" => $data['phone'],
+                        "payment_sources" => array(
+                            array(
+                                "type" => "card",
+                                "token_id" => $data['conektaTokenId']
+                            )
+                        )//payment_sources
+                    )//customer
+                );
+            } catch (\Conekta\ProccessingError $error){
+                $this->error = $error->getMesage();
+            } catch (\Conekta\ParameterValidationError $error){
+                $this->error = $error->getMessage();
+            } catch (\Conekta\Handler $error){
+                $this->error = $error->getMessage();
+            }
         }
 
         $subscription = $customer->createSubscription(
             array(
-                'plan' => 'plan-semanal'
+                'plan' => $planId
             )
         );
+
+        $status = ($customer->subscription['status'] === 'active') ? 1 : 0;
+
+        $subscriber->name = $data['first-name'] . ' ' . $data['last-name'];
+        $subscriber->email = $email;
+        $subscriber->phone = $data['phone'];
+        $subscriber->customer_id = $customer->id;
+        $subscriber->plan_id = $planId;
+        $subscriber->subscription_id = $customer->subscription['id'];
+        $subscriber->status = $status;
+        $subscriber->save();
 
         return $this->renderHTML('plan.twig', [
             'error' => $this->error
